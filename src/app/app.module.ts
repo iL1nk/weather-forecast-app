@@ -8,12 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppWeatherForecastComponent } from './app-weather-forecast/app-weather-forecast.component';
+import { AppTemperatureComponent } from './app-temperature/app-temperature.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppWeatherForecastComponent
+    AppWeatherForecastComponent,
+    AppTemperatureComponent
   ],
   imports: [
     BrowserModule,
