@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppWeatherForecastComponent } from './app-weather-forecast/app-weather-forecast.component';
 import { AppTemperatureComponent } from './app-temperature/app-temperature.component';
+import { AppForecastService } from './app-forecast.service'
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { AppTemperatureComponent } from './app-temperature/app-temperature.compo
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [AppForecastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
