@@ -9,7 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppWeatherForecastComponent } from './app-weather-forecast/app-weather-forecast.component';
 import { AppTemperatureComponent } from './app-temperature/app-temperature.component';
-import { AppForecastService } from './app-forecast.service'
+import { AppForecastService } from './app-forecast.service';
+// import { JsonpModule } from '@angular/http';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AppForecastService } from './app-forecast.service'
     BrowserAnimationsModule,
     MatButtonModule, MatFormFieldModule, MatCardModule, MatIconModule, MatInputModule, MatTabsModule, MatProgressSpinnerModule, MatToolbarModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    // JsonpModule
   ],
   providers: [AppForecastService],
   bootstrap: [AppComponent]
