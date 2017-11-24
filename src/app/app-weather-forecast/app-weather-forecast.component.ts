@@ -11,20 +11,24 @@ export class AppWeatherForecastComponent implements OnInit {
 
   responseData : {} = {};
   cityName : string;
-  weatherMin : string;
-  weatherMax : string;
-  // sampleUrl: string = 'https://samples.openweathermap.org/data/2.5/forecast/daily?q=M%C3%BCnchen,DE&appid=b1b15e88fa797225412429c1c50c122a1';
-  sampleUrl: string = 'https://api.openweathermap.org/data/2.5/weather?q=London,GB&mode=json&units=metric&cnt=7&appid=c1ce723438fb796c33e45b5a92267e91'
+  cityNameInput : string;
+  countryName : string;
+  todayDate : string;
+  formCityName : string;
+  formTemperature : number;
+  formCurCondition : string;
+  formImgUrlCondition : string;
+  loadingFlag : Boolean;
   constructor(private appForecastService: AppForecastService) { }
 
   ngOnInit() {
-    this.cityName = 'Lviv,UA';
-    // this.getCityName();
-    this.getSample();
+    this.cityNameInput = 'Kiev';
+    this.getForecastByCity();
+    // this.getSample();
   }
 
+  /*
   private getSample() {
-    console.log('111');
     this.appForecastService.getForecastSample(this.sampleUrl).subscribe(data => {
       if (data) {
         this.responseData = data;
@@ -34,14 +38,26 @@ export class AppWeatherForecastComponent implements OnInit {
       }
     })
   }
+  */
 
-  private getCityName() {
-    console.log('222');
-    if(this.cityName) { return; }
-    this.appForecastService.getWeather(this.cityName).subscribe(data => {
-      if (data && data.city && data.city.name) {
-        this.cityName = data.city.name;
+  private getForecastByCity() {
+    this.loadingFlag = true;
+    if(!this.cityNameInput) { return; }
+    this.appForecastService.getForecast(this.cityNameInput).subscribe(data => {
+      if (data) {
+        console.log(data);
+        this.responseData = data;
+        this.cityName = data.location.name;
+        this.countryName = data.location.country;
+        this.todayDate = data.location.localtime;
+
+        this.formCityName = `${this.cityName}, ${this.countryName}`;
+        this.formTemperature = data.current.temp_c;
+        this.formCurCondition = data.current.condition.text;
+        this.formImgUrlCondition = data.current.condition.icon;
+
       }
+      this.loadingFlag = false;
     })
   }
 

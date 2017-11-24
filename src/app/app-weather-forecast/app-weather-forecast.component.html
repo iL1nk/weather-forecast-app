@@ -1,18 +1,26 @@
 <form action="" class="app-form">
   <mat-form-field class="app-input">
-    <input matInput name="cityName" [(ngModel)]="cityName" placeholder="City,ST?" (keyup.enter) = "getCityName()">
+    <input matInput name="cityNameInput" [(ngModel)]="cityNameInput" placeholder="Enter your city..." (keyup.enter) = "getForecastByCity()">
   </mat-form-field>
 </form>
 
 <mat-card>
-  <mat-card-title>Monday</mat-card-title>
-  <mat-card-subtitle>18 November</mat-card-subtitle>
+  <mat-card-title>{{todayDate | date:'EEEE'}}</mat-card-title>
+  <mat-card-subtitle>{{todayDate | date:'MMMM d'}}</mat-card-subtitle>
   <mat-card-content>
     <div class="app-center">
-      <h3>{{cityName}}</h3>
-      <h1>22*C</h1>
-      <p>Sunny</p>
-      <!-- <div class="app-response">{{responseData}}</div> -->
+      <div *ngIf="loadingFlag" class="app-spinner">
+          <mat-spinner></mat-spinner>          
+      </div>
+      <section *ngIf="!loadingFlag">
+        <h3>{{formCityName}}</h3>
+        <h1 *ngIf="formTemperature">{{formTemperature}} <span class="app-degree">&deg;C</span></h1>
+        <article *ngIf="formCurCondition" class="app-condition">
+          <img src="{{formImgUrlCondition}}" alt="{{formCurCondition}}">
+          <span>{{formCurCondition}}</span>
+        </article>
+        <!-- <div class="app-response">{{responseData}}</div> -->
+      </section>
     </div>
   </mat-card-content>
 </mat-card>
