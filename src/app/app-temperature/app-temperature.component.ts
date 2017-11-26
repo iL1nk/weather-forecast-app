@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AppForecastService } from '../app-forecast.service';
 
 @Component({
   selector: 'app-temperature',
@@ -6,10 +7,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-temperature.component.css']
 })
 export class AppTemperatureComponent implements OnInit {
-
-  constructor() { }
+  @Input()
+  weatherForecast: Object[] = [];
+  temperatureForecast: Object[] = [];
+  constructor(private appForecastService: AppForecastService) { };
 
   ngOnInit() {
   }
+
+  /*
+  private getForecastByCity() {
+    if(!this.cityNameInput) { return; }
+    this.appForecastService.getForecast(this.cityNameInput).subscribe(data => {
+      if (data) {
+        console.log(data);
+
+        this.setAppFormData(data);
+        if (data.forecast && data.forecast.forecastday.length) {
+          this.saveTempForecast(data.forecast.forecastday);
+        }
+      }
+    })
+  }
+  */
 
 }

@@ -12,3 +12,34 @@
     margin: 0 auto;
     width: 100px;  
 }
+
+.no-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.mat-card-content h1 {
+    font-size: 2rem;
+    padding-top: .5rem;
+}
+
+.mat-card-content h3 {
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+mat-card-footer > ul {
+    text-align: center;
+    width: calc(100% - 3rem);
+    margin: 0 auto;
+    padding-left: 0;
+}
+
+mat-card-footer > ul > li,
+mat-card-footer > ul > li p {
+    display: inline-block;
+}
+
+mat-card-footer > ul > li {
+    margin-right: 4%;
+}

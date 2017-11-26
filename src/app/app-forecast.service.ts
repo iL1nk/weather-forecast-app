@@ -16,11 +16,9 @@ import { Observable } from 'rxjs/Observable';
 export class AppForecastService {
     searchForecastUrl: string = 'https://api.apixu.com/v1/forecast.json?';
     searchWeatherUrl: string = 'https://api.apixu.com/v1/current.json?';
-    // cityKey: string = 'Toronto';
     daysQuantity: string = '10';
     apiKey: string = 'a7cc8ad2eec5461da9394902172311';
 
-    // _constructor(private jsonp: Jsonp) { }
     constructor(private http: Http) { }
 
     private extractData(res: Response) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppForecastService } from '../app-forecast.service';
-import { Response } from '@angular/http/src/static_response';
+// import { Response } from '@angular/http/src/static_response';
 
 @Component({
   selector: 'app-weather-card',
@@ -18,44 +18,56 @@ export class AppWeatherForecastComponent implements OnInit {
   formTemperature : number;
   formCurCondition : string;
   formImgUrlCondition : string;
+  footerCurrentWeather : {
+    pressure: string,
+    humidity: string,
+    cloud: string,
+    windSpeed: string
+  } = {
+    pressure: '',
+    humidity: '',
+    cloud: '',
+    windSpeed: '',
+  };
   loadingFlag : Boolean;
   constructor(private appForecastService: AppForecastService) { }
 
   ngOnInit() {
     this.cityNameInput = 'Kiev';
-    this.getForecastByCity();
-    // this.getSample();
+    this.getCurrentWeatherByCity();
   }
 
-  /*
-  private getSample() {
-    this.appForecastService.getForecastSample(this.sampleUrl).subscribe(data => {
-      if (data) {
-        this.responseData = data;
-        console.log(this.responseData);
-        console.log(this.responseData['name']);
-        this.cityName = this.responseData['name'];
-      }
-    })
-  }
-  */
+  private setAppFormData(weatherData): void {
+    this.cityName = weatherData.location.name;
+    this.countryName = weatherData.location.country;
+    this.todayDate = weatherData.location.localtime;
 
-  private getForecastByCity() {
+    this.formCityName = `${this.cityName}, ${this.countryName}`;
+    this.formTemperature = weatherData.current.temp_c;
+    this.formCurCondition = weatherData.current.condition.text;
+    this.formImgUrlCondition = weatherData.current.condition.icon;
+
+    this.footerCurrentWeather.pressure = weatherData.current.pressure_mb;
+    this.footerCurrentWeather.humidity = weatherData.current.humidity;
+    this.footerCurrentWeather.windSpeed = `${weatherData.current.wind_mph} mph`;
+    this.footerCurrentWeather.cloud = `${weatherData.current.cloud} %`;
+  }
+
+  private saveTempForecast(forecastArray): void {
+    console.dir(forecastArray);
+  }
+
+  private getCurrentWeatherByCity() {
     this.loadingFlag = true;
     if(!this.cityNameInput) { return; }
     this.appForecastService.getForecast(this.cityNameInput).subscribe(data => {
       if (data) {
         console.log(data);
-        this.responseData = data;
-        this.cityName = data.location.name;
-        this.countryName = data.location.country;
-        this.todayDate = data.location.localtime;
 
-        this.formCityName = `${this.cityName}, ${this.countryName}`;
-        this.formTemperature = data.current.temp_c;
-        this.formCurCondition = data.current.condition.text;
-        this.formImgUrlCondition = data.current.condition.icon;
-
+        this.setAppFormData(data);
+        if (data.forecast && data.forecast.forecastday.length) {
+          this.saveTempForecast(data.forecast.forecastday);
+        }
       }
       this.loadingFlag = false;
     })
