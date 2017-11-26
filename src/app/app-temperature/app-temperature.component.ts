@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppForecastService } from '../app-forecast.service';
+import { count } from 'rxjs/operators/count';
 
 @Component({
   selector: 'app-temperature',
@@ -8,27 +9,76 @@ import { AppForecastService } from '../app-forecast.service';
 })
 export class AppTemperatureComponent implements OnInit {
   @Input()
-  weatherForecast: Object[] = [];
-  temperatureForecast: Object[] = [];
+  weatherForecast: Array<{}> = [];
+  temperatureForecast = [];
+  forecastDate = [];
+  forecastOptionsSet = {
+    temperature : {
+      propertySet: 'avgtemp_c',
+      dataArray: []
+    },
+    humidity : {
+      propertySet: 'avghumidity',
+      dataArray: [] 
+    },
+    wind : {
+      propertySet: 'maxwind_mph',
+      dataArray: [] 
+    }
+  };
   constructor(private appForecastService: AppForecastService) { };
 
   ngOnInit() {
+    this.getForecastData();
+  }
+
+  private convertDayFormat(dateString): string {
+    let dday = new Date (dateString);
+    let locale = "en-us";
+    let options = { day: 'numeric', month: 'long'};
+    let convertedDate = dday.toLocaleString(locale, options);
+    return convertedDate;
+  }
+
+  private setForecastDays(dayData) {
+    let countDay;
+    if (dayData.hasOwnProperty('date')) {
+      countDay = dayData['date'];
+      this.forecastDate.push(this.convertDayFormat(countDay));
+    }
+  }
+
+  private setForecastData(dayData, params) {
+    let currentDateData;
+    Object.keys(params).forEach(optionName => {
+      if (dayData.hasOwnProperty('day') && dayData['day'].hasOwnProperty(params[optionName].propertySet)) {
+        currentDateData = dayData['day'][params[optionName].propertySet];
+        params[optionName].dataArray.push(currentDateData);
+      }
+    });
   }
 
   /*
-  private getForecastByCity() {
-    if(!this.cityNameInput) { return; }
-    this.appForecastService.getForecast(this.cityNameInput).subscribe(data => {
-      if (data) {
-        console.log(data);
+  private setForecastTemperature(dayData) {
+    let currentDateData;
+    if (dayData.hasOwnProperty('day') && dayData['day'].hasOwnProperty('avgtemp_c')) {
+        currentDateData = dayData['day']['avgtemp_c'];
+        this.temperatureForecast.push(currentDateData);
+    }
+  } */
 
-        this.setAppFormData(data);
-        if (data.forecast && data.forecast.forecastday.length) {
-          this.saveTempForecast(data.forecast.forecastday);
-        }
-      }
-    })
+  private getForecastData() {
+    console.log(this.weatherForecast);
+
+    this.weatherForecast.forEach(element => {
+      this.setForecastDays(element);
+      //this.setForecastTemperature(element);
+
+      this.setForecastData(element, this.forecastOptionsSet);
+    });
+    console.log(this.forecastDate);
+    // console.log(this.temperatureForecast);
+    console.log(this.forecastOptionsSet);
   }
-  */
 
 }

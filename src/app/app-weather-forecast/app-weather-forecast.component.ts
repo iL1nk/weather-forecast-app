@@ -9,7 +9,7 @@ import { AppForecastService } from '../app-forecast.service';
 })
 export class AppWeatherForecastComponent implements OnInit {
 
-  responseData : {} = {};
+  responseData : Array<{}> = [];
   cityName : string;
   cityNameInput : string;
   countryName : string;
@@ -54,7 +54,7 @@ export class AppWeatherForecastComponent implements OnInit {
   }
 
   private saveTempForecast(forecastArray): void {
-    console.dir(forecastArray);
+    this.responseData = forecastArray;
   }
 
   private getCurrentWeatherByCity() {

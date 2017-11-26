@@ -33,4 +33,4 @@
     </ul>
   </mat-card-footer>
 </mat-card>
-<app-temperature *ngIf="!loadingFlag"></app-temperature>
+<app-temperature *ngIf="!loadingFlag" [weatherForecast]="responseData"></app-temperature>
