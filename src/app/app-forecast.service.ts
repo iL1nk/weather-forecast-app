@@ -39,17 +39,18 @@ export class AppForecastService {
             .map(this.extractData);
     }
 
-    /*
-    getForecastSample (apiUrl: string): Observable<Response> {
-        return this.http.get(apiUrl).map(res =>
-          {
-            if(res.ok) {
-              return res.json() as Response;
-            } else {
-                // Error
+    getObservableForecast (cityName: string): Observable<Response> {
+        return this.httpClient.get(this.searchForecastUrl
+            + 'key=' + this.apiKey
+            + '&q=' + cityName
+            + '&days=' + this.daysQuantity
+            ).map(res => {
+                if (res) {
+                return res as Response;
+                } else {
+                    // Error
+                }
             }
-          }
         );
     }
-    */
 }
