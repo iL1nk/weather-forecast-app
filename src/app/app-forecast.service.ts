@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+// import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 // import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -18,10 +19,11 @@ export class AppForecastService {
     daysQuantity: string = '10';
     apiKey: string = 'a7cc8ad2eec5461da9394902172311';
 
-    constructor(private http: Http) { }
+    // constructor(private http: Http) { }
+    constructor(private httpClient: HttpClient) { }
 
     private extractData(res: Response) {
-        const body = res.json();
+        const body = res;
         return body || {};
     }
 
@@ -29,7 +31,7 @@ export class AppForecastService {
         if (!cityName) {
             cityName = '';
         }
-        return this.http.get(
+        return this.httpClient.get(
             this.searchForecastUrl
             + 'key=' + this.apiKey
             + '&q=' + cityName

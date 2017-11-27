@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http'; -- deprecated
+import { HttpClientModule } from '@angular/common/http';
+
 
 import { MatButtonModule,
   MatFormFieldModule,
@@ -40,7 +42,8 @@ import { AppChartComponent } from './app-chart/app-chart.component';
     MatProgressSpinnerModule,
     MatToolbarModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
+    // HttpModule, -- deprecated
     ChartsModule
   ],
   providers: [AppForecastService],

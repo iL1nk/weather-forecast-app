@@ -65,8 +65,8 @@ export class AppWeatherForecastComponent implements OnInit {
         console.log(data);
 
         this.setAppFormData(data);
-        if (data.forecast && data.forecast.forecastday.length) {
-          this.saveTempForecast(data.forecast.forecastday);
+        if (data['forecast'] && data['forecast'].forecastday.length) {
+          this.saveTempForecast(data['forecast'].forecastday);
         }
       }
       this.loadingFlag = false;
