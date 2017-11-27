@@ -1,3 +1,36 @@
-<p>
-  app-weather-forecast works!
-</p>
+<form action="" class="app-form">
+  <mat-form-field class="app-input">
+    <input matInput name="cityNameInput" [(ngModel)]="cityNameInput" placeholder="Enter your city..." (keyup.enter) = "getCurrentWeatherByCity()">
+  </mat-form-field>
+</form>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{todayDate | date:'EEEE'}}</mat-card-title>
+    <mat-card-subtitle>{{todayDate | date:'MMMM d'}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="app-center">
+      <div *ngIf="loadingFlag" class="app-spinner">
+          <mat-spinner></mat-spinner>          
+      </div>
+      <section *ngIf="!loadingFlag">
+        <h3 class="no-margin">{{formCityName}}</h3>
+        <h1 class="no-margin" *ngIf="formTemperature">{{formTemperature}} <span class="app-degree">&deg;C</span></h1>
+        <article *ngIf="formCurCondition" class="app-condition">
+          <img src="{{formImgUrlCondition}}" alt="{{formCurCondition}}">
+          <span>{{formCurCondition}}</span>
+        </article>
+      </section>
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+    <ul class="bg-gray">
+      <li><p class="simple-bold">Pressure: </p> <span>{{footerCurrentWeather.pressure}}</span></li>
+      <li><p class="simple-bold">Humidity: </p> <span>{{footerCurrentWeather.humidity}}</span></li>
+      <li><p class="simple-bold">Wind Speed: </p> <span>{{footerCurrentWeather.windSpeed}}</span></li>
+      <li><p class="simple-bold">Clouds: </p> <span>{{footerCurrentWeather.cloud}}</span></li>
+    </ul>
+  </mat-card-footer>
+</mat-card>
+<app-temperature *ngIf="!loadingFlag" [weatherForecast]="responseData"></app-temperature>

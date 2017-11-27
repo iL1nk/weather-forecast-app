@@ -1,0 +1,20 @@
+<!-- // temperature component -->
+<mat-card>
+    <mat-toolbar>
+      <h2 *ngIf="isForecastSuccessful">Forecast 10 days</h2>
+      <h2 *ngIf="!isForecastSuccessful">Waiting data...</h2>      
+    </mat-toolbar>
+    <mat-tab-group *ngIf="isForecastSuccessful" md-selected="2" class="app-charts">
+        <mat-tab label={{chartType.name}} *ngFor="let chartType of forecastOptionsSet">
+            <div class="app-tab-content">
+                <app-chart [chartData]="chartType" [chartDays]="forecastDate"></app-chart>
+            </div> 
+        </mat-tab>
+        <!-- 
+        <mat-tab label="Pressure" disabled>
+          <div class="app-tab-content">
+              <!-- <app-chart id="app-pressure-chart"></app-chart>
+          </div>
+        </mat-tab> -->
+    </mat-tab-group>
+</mat-card>
