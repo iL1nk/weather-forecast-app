@@ -12,20 +12,24 @@ export class AppTemperatureComponent implements OnInit {
   weatherForecast: Array<{}> = [];
   temperatureForecast = [];
   forecastDate = [];
-  forecastOptionsSet = {
-    temperature : {
+  forecastOptionsSet = [
+    {
+      name: 'Temperature',
       propertySet: 'avgtemp_c',
       dataArray: []
     },
-    humidity : {
+    {
+      name: 'Humidity',
       propertySet: 'avghumidity',
       dataArray: [] 
     },
-    wind : {
+    {
+      name: 'Wind',
       propertySet: 'maxwind_mph',
       dataArray: [] 
     }
-  };
+  ];
+  isForecastSuccessful: Boolean = false;
   constructor(private appForecastService: AppForecastService) { };
 
   ngOnInit() {
@@ -40,7 +44,7 @@ export class AppTemperatureComponent implements OnInit {
     return convertedDate;
   }
 
-  private setForecastDays(dayData) {
+  private setForecastDays(dayData): void {
     let countDay;
     if (dayData.hasOwnProperty('date')) {
       countDay = dayData['date'];
@@ -48,7 +52,7 @@ export class AppTemperatureComponent implements OnInit {
     }
   }
 
-  private setForecastData(dayData, params) {
+  private setForecastData(dayData, params): void {
     let currentDateData;
     Object.keys(params).forEach(optionName => {
       if (dayData.hasOwnProperty('day') && dayData['day'].hasOwnProperty(params[optionName].propertySet)) {
@@ -69,16 +73,19 @@ export class AppTemperatureComponent implements OnInit {
 
   private getForecastData() {
     console.log(this.weatherForecast);
-
-    this.weatherForecast.forEach(element => {
-      this.setForecastDays(element);
-      //this.setForecastTemperature(element);
-
-      this.setForecastData(element, this.forecastOptionsSet);
-    });
-    console.log(this.forecastDate);
-    // console.log(this.temperatureForecast);
-    console.log(this.forecastOptionsSet);
+    if (this.weatherForecast && this.weatherForecast.length) {
+      this.weatherForecast.forEach(element => {
+        this.setForecastDays(element);
+        //this.setForecastTemperature(element);
+  
+        this.setForecastData(element, this.forecastOptionsSet);
+      });
+      console.log(this.forecastDate);
+      console.log(this.forecastOptionsSet);
+      this.isForecastSuccessful = true;
+    } else {
+      this.isForecastSuccessful = false;
+    }
   }
 
 }

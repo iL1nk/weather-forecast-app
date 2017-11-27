@@ -11,13 +11,15 @@ import { AppWeatherForecastComponent } from './app-weather-forecast/app-weather-
 import { AppTemperatureComponent } from './app-temperature/app-temperature.component';
 import { AppForecastService } from './app-forecast.service';
 // import { JsonpModule } from '@angular/http';
-
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { AppChartComponent } from './app-chart/app-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppWeatherForecastComponent,
-    AppTemperatureComponent
+    AppTemperatureComponent,
+    AppChartComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,7 @@ import { AppForecastService } from './app-forecast.service';
     FormsModule,
     HttpModule,
     // JsonpModule
+    ChartsModule
   ],
   providers: [AppForecastService],
   bootstrap: [AppComponent]
