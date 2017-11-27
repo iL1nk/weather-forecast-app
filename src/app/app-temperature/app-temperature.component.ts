@@ -21,12 +21,12 @@ export class AppTemperatureComponent implements OnInit {
     {
       name: 'Humidity',
       propertySet: 'avghumidity',
-      dataArray: [] 
+      dataArray: []
     },
     {
       name: 'Wind',
       propertySet: 'maxwind_mph',
-      dataArray: [] 
+      dataArray: []
     }
   ];
   isForecastSuccessful: Boolean = false;
@@ -37,10 +37,10 @@ export class AppTemperatureComponent implements OnInit {
   }
 
   private convertDayFormat(dateString): string {
-    let dday = new Date (dateString);
-    let locale = "en-us";
-    let options = { day: 'numeric', month: 'long'};
-    let convertedDate = dday.toLocaleString(locale, options);
+    const dday = new Date (dateString);
+    const locale = 'en-us';
+    const options = { day: 'numeric', month: 'long'};
+    const convertedDate = dday.toLocaleString(locale, options);
     return convertedDate;
   }
 
@@ -72,16 +72,15 @@ export class AppTemperatureComponent implements OnInit {
   } */
 
   private getForecastData() {
-    console.log(this.weatherForecast);
+    // console.log(this.weatherForecast);
     if (this.weatherForecast && this.weatherForecast.length) {
       this.weatherForecast.forEach(element => {
         this.setForecastDays(element);
-        //this.setForecastTemperature(element);
-  
+        // this.setForecastTemperature(element);
         this.setForecastData(element, this.forecastOptionsSet);
       });
-      console.log(this.forecastDate);
-      console.log(this.forecastOptionsSet);
+      // console.log(this.forecastDate);
+      // console.log(this.forecastOptionsSet);
       this.isForecastSuccessful = true;
     } else {
       this.isForecastSuccessful = false;

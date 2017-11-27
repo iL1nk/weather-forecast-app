@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-// import { JsonpModule, Jsonp, Response } from '@angular/http';
-// import 'rxjs/add/operator/map';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+// import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-// import { Http } from '@angular/http/src/http';
+// import { JsonpModule, Jsonp, Response } from '@angular/http';
 
 // current - https://api.apixu.com/v1/current.json?key=a7cc8ad2eec5461da9394902172311&q=Toronto
 // forecast - https://api.apixu.com/v1/forecast.json?key=a7cc8ad2eec5461da9394902172311&q=Toronto&days=10
@@ -22,7 +21,7 @@ export class AppForecastService {
     constructor(private http: Http) { }
 
     private extractData(res: Response) {
-        let body = res.json();
+        const body = res.json();
         return body || {};
     }
 
@@ -39,7 +38,8 @@ export class AppForecastService {
             .map(this.extractData);
     }
 
-    getForecastSample (apiUrl: string):Observable<Response> {
+    /*
+    getForecastSample (apiUrl: string): Observable<Response> {
         return this.http.get(apiUrl).map(res =>
           {
             if(res.ok) {
@@ -50,4 +50,5 @@ export class AppForecastService {
           }
         );
     }
+    */
 }
