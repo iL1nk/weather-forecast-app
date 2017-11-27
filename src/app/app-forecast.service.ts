@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 // import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-// import { JsonpModule, Jsonp, Response } from '@angular/http';
 
 // current - https://api.apixu.com/v1/current.json?key=a7cc8ad2eec5461da9394902172311&q=Toronto
 // forecast - https://api.apixu.com/v1/forecast.json?key=a7cc8ad2eec5461da9394902172311&q=Toronto&days=10

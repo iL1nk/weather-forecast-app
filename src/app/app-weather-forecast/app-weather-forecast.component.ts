@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppForecastService } from '../app-forecast.service';
+import 'rxjs/add/operator/takeWhile';
 // import { Response } from '@angular/http/src/static_response';
 
 @Component({
@@ -7,7 +8,7 @@ import { AppForecastService } from '../app-forecast.service';
   templateUrl: './app-weather-forecast.component.html',
   styleUrls: ['./app-weather-forecast.component.css']
 })
-export class AppWeatherForecastComponent implements OnInit {
+export class AppWeatherForecastComponent implements OnDestroy, OnInit {
 
   responseData: Array<{}> = [];
   cityName: string;
@@ -29,12 +30,17 @@ export class AppWeatherForecastComponent implements OnInit {
     cloud: '',
     windSpeed: '',
   };
-  loadingFlag: Boolean;
+  loadingFlag: boolean;
+  private alive: boolean = true;
   constructor(private appForecastService: AppForecastService) { }
 
   ngOnInit() {
     this.cityNameInput = 'Kiev';
     this.getCurrentWeatherByCity();
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
   private setAppFormData(weatherData): void {
@@ -60,17 +66,19 @@ export class AppWeatherForecastComponent implements OnInit {
   private getCurrentWeatherByCity() {
     this.loadingFlag = true;
     if (!this.cityNameInput) { return; }
-    this.appForecastService.getForecast(this.cityNameInput).subscribe(data => {
-      if (data) {
-        console.log(data);
+    this.appForecastService.getForecast(this.cityNameInput)
+      .takeWhile(() => this.alive)
+      .subscribe(data => {
+        if (data) {
+          console.log(data);
 
-        this.setAppFormData(data);
-        if (data['forecast'] && data['forecast'].forecastday.length) {
-          this.saveTempForecast(data['forecast'].forecastday);
+          this.setAppFormData(data);
+          if (data['forecast'] && data['forecast'].forecastday.length) {
+            this.saveTempForecast(data['forecast'].forecastday);
+          }
         }
-      }
-      this.loadingFlag = false;
-    });
+        this.loadingFlag = false;
+      });
   }
 
 }
