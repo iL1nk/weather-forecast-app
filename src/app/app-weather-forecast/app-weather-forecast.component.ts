@@ -9,16 +9,16 @@ import { AppForecastService } from '../app-forecast.service';
 })
 export class AppWeatherForecastComponent implements OnInit {
 
-  responseData : Array<{}> = [];
-  cityName : string;
-  cityNameInput : string;
-  countryName : string;
-  todayDate : string;
-  formCityName : string;
-  formTemperature : number;
-  formCurCondition : string;
-  formImgUrlCondition : string;
-  footerCurrentWeather : {
+  responseData: Array<{}> = [];
+  cityName: string;
+  cityNameInput: string;
+  countryName: string;
+  todayDate: string;
+  formCityName: string;
+  formTemperature: number;
+  formCurCondition: string;
+  formImgUrlCondition: string;
+  footerCurrentWeather: {
     pressure: string,
     humidity: string,
     cloud: string,
@@ -29,7 +29,7 @@ export class AppWeatherForecastComponent implements OnInit {
     cloud: '',
     windSpeed: '',
   };
-  loadingFlag : Boolean;
+  loadingFlag: Boolean;
   constructor(private appForecastService: AppForecastService) { }
 
   ngOnInit() {
@@ -59,7 +59,7 @@ export class AppWeatherForecastComponent implements OnInit {
 
   private getCurrentWeatherByCity() {
     this.loadingFlag = true;
-    if(!this.cityNameInput) { return; }
+    if (!this.cityNameInput) { return; }
     this.appForecastService.getForecast(this.cityNameInput).subscribe(data => {
       if (data) {
         console.log(data);
@@ -70,7 +70,7 @@ export class AppWeatherForecastComponent implements OnInit {
         }
       }
       this.loadingFlag = false;
-    })
+    });
   }
 
 }

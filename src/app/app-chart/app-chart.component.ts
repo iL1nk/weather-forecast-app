@@ -11,15 +11,14 @@ export class AppChartComponent implements OnInit {
   chartData: any = {};
   @Input()
   chartDays: string[];
-  public barChartOptions:any = {
+  public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = [];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
- 
-  public barChartData:any[] = [
+  public barChartLabels: string[] = [];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+  public barChartData: any[] = [
     {data: [], label: ''}
   ];
 
