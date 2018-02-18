@@ -39,6 +39,7 @@ export class AppWeatherForecastComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.cityNameInput = 'Kiev';
     this.getCurrentWeatherByCity();
+    this.getObservableForecast(this.cityNameInput);
   }
 
   ngOnDestroy() {
@@ -83,9 +84,9 @@ export class AppWeatherForecastComponent implements OnDestroy, OnInit {
       });
   }
 
-  private getObservableForecast() {
-    this.observableWeatherForecast = this.appForecastService.getObservableForecast(this.cityName);
-    console.log(this.observableWeatherForecast);
+  private getObservableForecast(cityName) {
+    this.observableWeatherForecast = this.appForecastService.getObservableForecast(cityName);
+    console.warn(this.observableWeatherForecast);
   }
 
 }

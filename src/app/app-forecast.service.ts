@@ -44,13 +44,6 @@ export class AppForecastService {
             + 'key=' + this.apiKey
             + '&q=' + cityName
             + '&days=' + this.daysQuantity
-            ).map(res => {
-                if (res) {
-                return res as Response;
-                } else {
-                    // Error
-                }
-            }
-        );
+            ).map((res: Response) => res);
     }
 }
