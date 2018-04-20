@@ -1,5 +1,6 @@
 # WeatherForecastApp
 // unsaved commit
+// more updates to read.me to create new_feature commits
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
